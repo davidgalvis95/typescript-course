@@ -70,8 +70,15 @@ anyArray.push(person1)
 anyArray.push("sdfsf")
 anyArray.push(5)
 
+enum RESULT_TYPES {
+    AS_TEXT = 'as-text',
+    AS_NUMBER = 'as-number'
+}
+
 //This is known as the union type in typescript
-function combine(input1: string | number, input2: string | number){
+//Here we are adding literal types where we only allow certain types to be here like the ones contained in the
+//In the RESULT_TYPES enum
+function combine(input1: string | number, input2: string | number, resultType: RESULT_TYPES): number | string {
     let result;
 
     if(typeof input1 === 'number' && typeof input2 === 'number'){
@@ -79,8 +86,27 @@ function combine(input1: string | number, input2: string | number){
     }else{
         result = input1.toString() + input2.toString()
     }
-    return result;
+
+    if(resultType === RESULT_TYPES.AS_NUMBER){
+        return result +result
+    }else{
+        return result.toString()
+    }
 }
 
-let result = combine('Leela', 'Leela')
+//Here we are not returning so is void
+function printResult(value: any): void{
+    console.log(value)
+}
+
+//Here we are returning nothing so is of type undefined
+function printResult1(value: any): undefined{
+    console.log(value)
+    return;
+}
+
+let result = combine('Leela', 'Leela', RESULT_TYPES.AS_NUMBER)
 console.log(result)
+//using the function
+printResult(combine('Leela', 'Leela', RESULT_TYPES.AS_NUMBER))
+
