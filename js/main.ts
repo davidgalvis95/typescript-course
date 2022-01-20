@@ -155,3 +155,12 @@ try {
 //The following two commands will  1. Create a tsconfig.json and will auto-compile all project files
 //tsc -- init
 //tsc --watch
+
+//============================================================
+ 
+// const button =  document.querySelector('button')!;
+const button =  document.querySelector('button');
+
+button?.addEventListener('click', () => {
+    console.log("Clicked")
+})
