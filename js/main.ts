@@ -88,7 +88,7 @@ function combine(input1: string | number, input2: string | number, resultType: R
     }
 
     if(resultType === RESULT_TYPES.AS_NUMBER){
-        return result +result
+        return +result
     }else{
         return result.toString()
     }
@@ -149,3 +149,9 @@ try {
 }finally {
     console.log('Error generated')
 }
+ 
+//The following command auto-compiles the file whenever the file inside it has been saved
+//tsc <js file> --watch or tsc <js file> -w
+//The following two commands will  1. Create a tsconfig.json and will auto-compile all project files
+//tsc -- init
+//tsc --watch
