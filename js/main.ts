@@ -110,3 +110,12 @@ console.log(result)
 //using the function
 printResult(combine('Leela', 'Leela', RESULT_TYPES.AS_NUMBER))
 
+
+//Here we are ensuring that the type which combineValues is assigned to, is a function receiving those 
+//param types and returning that result type
+let combineValues: (input1: string | number, input2: string | number, resultType: RESULT_TYPES) => string | number;
+
+combineValues = combine;
+
+console.log(combineValues('David', 'Galvis', RESULT_TYPES.AS_NUMBER));
+
