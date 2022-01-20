@@ -119,3 +119,33 @@ combineValues = combine;
 
 console.log(combineValues('David', 'Galvis', RESULT_TYPES.AS_NUMBER));
 
+let userInput: unknown;
+let userName: string;
+
+userInput = 5
+userInput = 'Some string'
+
+//This will generate error because userInpur is unknown
+//userName = userInput
+
+if(typeof userInput === 'string'){
+    userName = userInput;
+}
+
+function generateError(message: string, code: number):never {
+    throw {message: message, code: code}
+}
+
+function generateAPrint(): void {
+    console.log('Printing something')
+    return;
+}
+
+console.log(generateAPrint())
+
+try {
+    let result : never = generateError('Some error happened', 500);
+    console.log(result)
+}finally {
+    console.log('Error generated')
+}
