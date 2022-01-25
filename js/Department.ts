@@ -1,4 +1,5 @@
-class Department {
+//Abstract classes cannot be instantiated
+abstract class Department {
 
     // private id: string;
     // public name: string;
@@ -9,11 +10,14 @@ class Department {
     constructor(private readonly id: string, public name: string){
         this.name = name;
         this.id = id;
-    } 
-
-    describe(this: Department){
-        console.log(`Department with id (${this.id}) : ${this.name}`);
     }
+
+    get getId(): string {
+        return this.id;
+    }
+
+    //Here we are forcing all the classes that implement this one to implement the describe method
+    abstract describe(this: Department):void;
 
     addEmployee(employee: string){
         this.employees.push(employee)
@@ -29,26 +33,31 @@ class Department {
     }
 }
 
-let department = new Department("a1", "Accounting");
-console.log(department)
+// let department = new Department("a1", "Accounting");
+// console.log(department)
 
-let departmentCopy = { describe: department.describe };
+// let departmentCopy = { describe: department.describe };
 // let departmentCopy = { name: 'HR',describe: department.describe };
 
 // departmentCopy.describe();
 //By binding the current function, we can change the params and the context that this function is expected to receive
-departmentCopy.describe.bind(department)();
+// departmentCopy.describe.bind(department)();
 
-department.addEmployee('David');
-department.addEmployee('Maria');
+// department.addEmployee('David');
+// department.addEmployee('Maria');
 
-department.getEmployees()[2] = 'Don';
+// department.getEmployees()[2] = 'Don';
 
-department.printEmployees();
+// department.printEmployees();
 
 class ItDepartment extends Department {
     constructor(id: string){
         super(id, 'ITDepartment');
+    }
+
+
+    describe(this: ItDepartment){
+        console.log(`Accounting department with id (${this.getId}) : ${this.name}`);
     }
 }
 
@@ -82,6 +91,10 @@ class AccountingDepartment extends Department {
 
     static createEmployee(name: string): string {
         return name;
+    }
+
+    describe(this: AccountingDepartment){
+        console.log(`Accounting department with id (${this.getId}) : ${this.name}`);
     }
 
     addEmployee(employee: string): void {
