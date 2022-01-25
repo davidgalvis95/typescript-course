@@ -2,7 +2,8 @@ class Department {
 
     // private id: string;
     // public name: string;
-    private employees: string[] = [];
+    // private employees: string[] = []
+    protected employees: string[] = [];
 
     // This means that the id will only be created using the constructor but not accessed any other way // this is read only
     constructor(private readonly id: string, public name: string){
@@ -54,6 +55,18 @@ class ItDepartment extends Department {
 class AccountingDepartment extends Department {
     constructor(id:string, public reports: string[]){
         super(id, 'Accounting');
+    }
+
+    addEmployee(employee: string): void {
+        if(employee === 'John'){
+            return;
+        }else{
+            // If the employees variable keeps being private, this is the way of accessing it
+            // super.getEmployees().push(employee);
+            // super.addEmployee(employee);
+            // Once switched to protected, we can change it to aceess by the child class
+            this.employees.push(employee);
+        }
     }
 
     addReport(report: string){
