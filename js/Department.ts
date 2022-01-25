@@ -56,6 +56,11 @@ class AccountingDepartment extends Department {
 
     private lastRecord: string;
 
+    //This is a prop that belongs to the class, not to the instance
+    // static financialYear = 2020;
+    //This is a constant
+    static readonly financialYear = 2020;
+
     constructor(id:string, public reports: string[]){
         super(id, 'Accounting');
         this.lastRecord = reports[0];
@@ -73,6 +78,10 @@ class AccountingDepartment extends Department {
             throw new Error('Report cannot be inserted');
         }
         this.addReport(value);
+    }
+
+    static createEmployee(name: string): string {
+        return name;
     }
 
     addEmployee(employee: string): void {
@@ -105,4 +114,7 @@ const accounting = new AccountingDepartment('a1', [])
 accounting.addEmployee('Marcus');
 accounting.addReport('Something went wrong');
 accounting.printEmployees()
-console.log(it)
+console.log(it);
+
+AccountingDepartment.createEmployee('Some employee');
+console.log(AccountingDepartment.financialYear)
