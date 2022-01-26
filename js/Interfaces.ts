@@ -1,12 +1,33 @@
+
+//Both of the following 2 ways of declaring interfaces and types like functions to be declared
+//implemented are valid and are the same
+type addFn = (a:number, b:number) => number;
+
+interface addFn1 {
+    (a:number, b:number) : number;
+}
+
+//implementing those interfaces and types with a function
+var add: addFn = (x:number, y:number) => {
+    return x + y;
+};
+
+var add: addFn1 = (x:number, y:number) => {
+    return x + y;
+};
+
+
 interface IName {
     //We can have constants as well in interfaces
     readonly name: string;
+    //When a parameter is optional, typescript does not complain about that
+    readonly optionalName?: string;
 }
 
 //we can extend multiple interfaces as well
 interface IPerson  extends IName {
     age: number;
-    occupation: string;
+    occupation?: string;
     hello(phrases: string):void;
 }
 
@@ -14,7 +35,9 @@ interface IPerson  extends IName {
 // class Person implements IPerson, IName {
 class Person implements IPerson {
 
-    constructor(public name: string, public age: number, public occupation: string){
+    //Dealing with optional parameters, are marked with ? and are positioned in the constructor
+    //In the last positions
+    constructor(public name: string, public age: number, public occupation?: string){
     }
 
     hello(phrases: string):void {
@@ -27,6 +50,7 @@ class Person implements IPerson {
 }
 
 let david: Person = new Person('David', 26, 'Developer');
+let nick: Person = new Person('Nick', 46);
 david.hello('Hi ');
 david.greet();
 
