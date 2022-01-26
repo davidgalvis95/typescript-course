@@ -70,9 +70,22 @@ class AccountingDepartment extends Department {
     //This is a constant
     static readonly financialYear = 2020;
 
-    constructor(id:string, public reports: string[]){
+    //This is a static variable attached to the class, not to instances, so only one can exist
+    private static instance: AccountingDepartment;
+
+    //This does not make accessible the creations of instances outside of this class
+    private constructor(id:string, public reports: string[]){
         super(id, 'Accounting');
         this.lastRecord = reports[0];
+    }
+
+    //If the variable instance already exists the return that one, otherwise create a new one
+    //THIS IS THE SINGLETON PATTERN
+    static getInstance(): AccountingDepartment{
+        if(AccountingDepartment.instance){
+            return this.instance;
+        }
+        return new AccountingDepartment('d2', []);
     }
 
     get mostRecentReport(){
@@ -123,7 +136,9 @@ const it = new ItDepartment('d1')
 it.addEmployee('Jhon')
 console.log(it)
 
-const accounting = new AccountingDepartment('a1', [])
+//Both variable are pointing to the same instance, then making it singleton
+const accounting = AccountingDepartment.getInstance()
+const accounting1 = AccountingDepartment.getInstance()
 accounting.addEmployee('Marcus');
 accounting.addReport('Something went wrong');
 accounting.printEmployees()
