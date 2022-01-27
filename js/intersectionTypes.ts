@@ -85,3 +85,14 @@ const v2 =  new Truck();
 
 useVehicle(v1);
 useVehicle(v2);
+
+//This is type casting an input element as in javascript, however this way can be problematic in React.js
+// const inputTypeParagraph = <HTMLInputElement>document.getElementById('input-submit');
+//So the following two ways are better preferred when dealing with JSX code and React
+// const inputTypeParagraph = document.getElementById('input-submit') as HTMLInputElement;
+const inputTypeParagraph = document.getElementById('input-submit');
+// inputTypeParagraph.value = 'user-input';
+
+if(inputTypeParagraph){
+    (inputTypeParagraph as HTMLInputElement).value = 'text';
+}
