@@ -96,3 +96,14 @@ const inputTypeParagraph = document.getElementById('input-submit');
 if(inputTypeParagraph){
     (inputTypeParagraph as HTMLInputElement).value = 'text';
 }
+
+
+interface ErrorContainer {
+    [prop: string]: string;
+}
+
+let errorBag: ErrorContainer = {
+    email: 'Email is valid',
+    username: 'username is valid'
+};
+
