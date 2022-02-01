@@ -74,3 +74,26 @@ function extractFromObject<T extends object, U extends keyof T>(obj: T, key: U){
 }
 
 extractFromObject({name: 'David', age: 30}, 'age');
+
+
+class DataStorage<T> {
+    public data: Array<T> = [];
+
+    addItem(item: T) {
+        this.data.push(item);
+    }
+
+    removeItem(item: T){
+        this.data.splice(this.data.indexOf(item), 1);
+    }
+
+    getItems() {
+        return [...this.data];
+    }
+}
+
+const stringStorage = new DataStorage<string>();
+stringStorage.addItem('dsfdsf');
+stringStorage.addItem('dfsdfdd');
+stringStorage.getItems();
+stringStorage.removeItem('dsfdsf');
