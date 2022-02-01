@@ -97,3 +97,35 @@ stringStorage.addItem('dsfdsf');
 stringStorage.addItem('dfsdfdd');
 stringStorage.getItems();
 stringStorage.removeItem('dsfdsf');
+
+interface course {
+    title: string;
+    description: string;
+    addedDate: Date;
+}
+
+function addCourse(
+    title: string, description: string, addedDate: Date
+): course {
+    
+    //If we add this as only data then we will need to assign the properties of that type of data to
+    //In this case the course type. otherwise we will get an error, the other way is to create it as partial one
+    // let data: course = {};
+    let data: Partial<course> = {};
+    
+
+    data.title = title;
+    data.description = description;
+    data.addedDate = addedDate;
+
+    //Since we are requiring this function to return a course but we are not returning the course
+    //Then we are getting error, but to return the object from a partial object just we need to cast it
+    // return <course>data;
+    return <course>data;
+}
+
+
+let strings: Readonly<string[]> = ['dfsdf', 'dsfsdfd'];
+//We cannot push since the variable was declared as readonly
+// strings.push('dfsfsddd');
+
