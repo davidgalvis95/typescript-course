@@ -24,27 +24,32 @@ class Person {
 
 //With this decorator we can change a bit the behavior of the User class
 //The hookId in this case is the html element that holds the id="app", in this case a pair of div
+//WITH THESE MODIFICATIONS THE LOGIC INSIDE THIS DECORATOR WON'T BE EXECUTED IF AN INSTANCE OF THE
+//DECORATED CLASS HAS NOT BEEN CREATED
 function Component(template:string, hookId: string){
     console.log("Template factory");
     //Here we are receiving the constructor from the class User which holds a property name
-    return function(constructor:any){
-        const hookEl = document.getElementById(hookId);
-        console.log("inside template decorator")
-        //Here we are creating a new instance of that data that in our case is the User class, which
-        //hence the property name is created
-        const data = new constructor();
-        if(hookEl){
-            //Assigning the innerHTML as the passed template, in this case: <h1>Hai</h1>
-            hookEl.innerHTML = template;
-            //selecting the h1 inside that div and changing the text by the name of the data, in this case the class User
-            hookEl.querySelector('h1')!.textContent = data.name;
-        }
-        //Here we are overriding the constructor that is given to us as the  param of the constructor
-        //So when a user is created instead of creating it with the name David instead
-        //This decorator will override that name and will get that one as Jhon
-        return class {
-            name = 'Jhon';
-            getPrice() {}
+    //Here the constructor is of type T since we do not know the type of that constructor
+    //So basically we are here saying that  the type of constructor is one that extends the function type
+    //because this 'new(...args:any[]):{ name: string } ' means a function type that receives some parameters
+    //and returns an object with a property name in there, so this is implemented so that it matches what we aim
+    //in the return block lines below
+    return function<T extends { new(...args:any[]):{ name: string } }>(constructor:T){
+        return class extends constructor {
+            //The constructor received here is of any type
+            constructor(...args: any[]){
+                super(args);
+                //executing some logic
+                const hookEl = document.getElementById(hookId);
+                //Here we are creating a new instance of that data that in our case is the User class, which
+                //hence the property name is created
+                if(hookEl){
+                    //Assigning the innerHTML as the passed template, in this case: <h1>Hai</h1>
+                    hookEl.innerHTML = template;
+                    //selecting the h1 inside that div and changing the text by the name of the data, in this case the class User
+                    hookEl.querySelector('h1')!.textContent = this.name;
+                }
+            }
         }
     }
 }
