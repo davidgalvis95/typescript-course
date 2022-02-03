@@ -39,6 +39,13 @@ function Component(template:string, hookId: string){
             //selecting the h1 inside that div and changing the text by the name of the data, in this case the class User
             hookEl.querySelector('h1')!.textContent = data.name;
         }
+        //Here we are overriding the constructor that is given to us as the  param of the constructor
+        //So when a user is created instead of creating it with the name David instead
+        //This decorator will override that name and will get that one as Jhon
+        return class {
+            name = 'Jhon';
+            getPrice() {}
+        }
     }
 }
 
@@ -49,10 +56,12 @@ function Component(template:string, hookId: string){
 //Decorator for the User class
 @Component('<h1>Hai</h1>', 'app')
 class User {
-    name:string = 'User'
+    name:string = 'David'
     constructor(){
         console.log('creating object');
     }
+
+    getPrice() {}
 }
 
 function Log(target:any, propertyName:string){
@@ -87,5 +96,8 @@ class Product {
         return this._price * (1 + tax);
     }
 }
+
+const user:User = new User();
+console.log(user)
 
 //We can also apply decorators for accessors(getters and setters), methods and method parameters, please look at the typescript docs
